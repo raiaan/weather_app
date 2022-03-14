@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_blue_color"
+    android:elevation="@dimen/cardview_default_elevation"
+    android:layout_marginRight="16dp"
+    android:padding="@dimen/default_margin">
+
+    <TextView
+        android:id="@+id/day_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textFontWeight="@integer/bold_text_value"
+        android:textSize="@dimen/big_font_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/current_weather_icon"
+        android:layout_width="@dimen/custom_icon_size"
+        android:layout_height="@dimen/custom_icon_size"
+        android:contentDescription="@string/icon_weather_content_disc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/current_weather_temp" />
+
+    <TextView
+        android:id="@+id/current_weather_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textFontWeight="@integer/bolder_text_value"
+        android:textSize="@dimen/bigger_font_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/current_weather_feel_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/current_weather_icon" />
+
+    <TextView
+        android:id="@+id/current_weather_clouds"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/current_weather_feel_like" />
+
+    <TextView
+        android:id="@+id/current_weather_humidity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/day_date" />
+
+    <TextView
+        android:id="@+id/current_weather_wind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/current_weather_humidity" />
+
+    <TextView
+        android:id="@+id/current_weather_pressure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/current_weather_wind" />
+</androidx.constraintlayout.widget.ConstraintLayout>
