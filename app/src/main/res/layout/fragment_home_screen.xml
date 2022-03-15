@@ -108,8 +108,7 @@
             tools:listitem="@layout/daily_forcaste_item"
             android:layout_marginTop="16dp"
             android:orientation="horizontal"
-            android:id="@+id/daily_forcast_list"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-    </LinearLayout>
+            android:id="@+id/daily_forcast_list"/>
+   </LinearLayout>
 
 </ScrollView>

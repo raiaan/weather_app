@@ -10,9 +10,11 @@
         <entry key="..\:/iti_material/WeatherApp/app/src/main/res/layout/current_layout_data.xml" value="0.1796875" />
         <entry key="..\:/iti_material/WeatherApp/app/src/main/res/layout/daily_forcaste_item.xml" value="0.3333333333333333" />
         <entry key="..\:/iti_material/WeatherApp/app/src/main/res/layout/daily_hours_items.xml" value="0.1796875" />
+        <entry key="..\:/iti_material/WeatherApp/app/src/main/res/layout/fragment_alert.xml" value="0.1796875" />
         <entry key="..\:/iti_material/WeatherApp/app/src/main/res/layout/fragment_home.xml" value="0.1796875" />
-        <entry key="..\:/iti_material/WeatherApp/app/src/main/res/layout/fragment_home_screen.xml" value="0.1796875" />
+        <entry key="..\:/iti_material/WeatherApp/app/src/main/res/layout/fragment_home_screen.xml" value="0.10291595197255575" />
         <entry key="..\:/iti_material/WeatherApp/app/src/main/res/layout/fragment_setting.xml" value="0.1" />
+        <entry key="..\:/iti_material/WeatherApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1796875" />
       </map>
     </option>
   </component>

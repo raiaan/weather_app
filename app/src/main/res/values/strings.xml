@@ -12,5 +12,8 @@
     <string name="permission_required_toast">Location permission is required for this Application</string>
     <string name="permission_rationale_location">Access to the location service is required find your weather data.</string>
     <string name="pref_user_longitude" tools:ignore="ExtraTranslation">log</string>
+    <string name="title_home">Home</string>
+    <string name="title_alert">Alerts</string>
+    <string name="title_setting">Setting</string>
 
 </resources>

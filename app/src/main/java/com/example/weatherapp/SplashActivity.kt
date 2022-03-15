@@ -37,6 +37,7 @@ class SplashActivity : AppCompatActivity() {
                 putBoolean(getString(R.string.preference_first_time),false)
                 apply()
             }
+            goHome()
         }
         else goHome()
     }

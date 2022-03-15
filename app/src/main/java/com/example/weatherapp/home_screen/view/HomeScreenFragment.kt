@@ -40,13 +40,11 @@ class HomeScreenFragment : Fragment() {
     private var _binding: FragmentHomeScreenBinding? = null
     private val binding get() = _binding!!
     private lateinit var sharedPreferences: SharedPreferences
-    private val linearLayoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
     private lateinit var lat:String
     private lateinit var log:String
     val hoursAdapter = HoursAdapter()
     val daysAdapter = DailyAdapter()
-    val spinningLinearLayoutManager = SpinningLinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
-    override fun onCreate(savedInstanceState: Bundle?) {
+   override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
@@ -67,11 +65,11 @@ class HomeScreenFragment : Fragment() {
         val mainRepository = OnlineRepository(retrofitService,lat,log)
         binding.weatherHoursList.apply {
             adapter = hoursAdapter
-            layoutManager = linearLayoutManager
+            layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
         }
         binding.dailyForcastList.apply {
             adapter = daysAdapter
-
+            layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
         }
         viewModel = ViewModelProvider(this, WeatherViewModelFactory(mainRepository))
             .get(WeatherViewModel::class.java)
