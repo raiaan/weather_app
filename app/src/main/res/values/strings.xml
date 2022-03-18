@@ -15,5 +15,10 @@
     <string name="title_home">Home</string>
     <string name="title_alert">Alerts</string>
     <string name="title_setting">Setting</string>
+    <string name="title_favourite">Favouties</string>
+    <string name="add_city">Add Favourite Location</string>
+    <string name="delete_city">Delete</string>
+    <string name="hint_city">Cairo....</string>
+    <string name="button_save">Add</string>
 
 </resources>

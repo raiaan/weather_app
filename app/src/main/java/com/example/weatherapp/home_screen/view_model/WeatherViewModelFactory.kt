@@ -2,7 +2,7 @@ package com.example.weatherapp.home_screen.view_model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.weatherapp.models.OnlineRepository
+import com.example.weatherapp.repositories.OnlineRepository
 
 class WeatherViewModelFactory constructor(private val repository: OnlineRepository): ViewModelProvider.Factory {
 

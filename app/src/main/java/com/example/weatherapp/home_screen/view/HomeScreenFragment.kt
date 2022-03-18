@@ -12,18 +12,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.weatherapp.R
 import com.example.weatherapp.databinding.FragmentHomeScreenBinding
 import com.example.weatherapp.home_screen.view_model.WeatherViewModel
 import com.example.weatherapp.home_screen.view_model.WeatherViewModelFactory
-import com.example.weatherapp.models.OnlineRepository
+import com.example.weatherapp.repositories.OnlineRepository
 import com.example.weatherapp.models.WeatherResponse
 import com.example.weatherapp.network.RetrofitService
-import com.example.weatherapp.util.SpinningLinearLayoutManager
 import com.example.weatherapp.util.dateFromLongToStr
-import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -90,6 +87,7 @@ class HomeScreenFragment : Fragment() {
         return view
     }
     private fun getCity(lat:String,lon:String):String{
+        viewModel.getOnlineWeatherData()
         val myLocation = Geocoder(requireContext(), Locale.getDefault())
         val myList: List<Address> =
             myLocation.getFromLocation(lat.toDouble(), lon.toDouble(), 1)
@@ -123,15 +121,7 @@ class HomeScreenFragment : Fragment() {
 
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HomeScreenFragment.
-         */
-        // TODO: Rename and change types and number of parameters
+
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             HomeScreenFragment().apply {

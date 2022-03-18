@@ -1,24 +1,26 @@
 package com.example.weatherapp
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Location
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import androidx.core.content.ContextCompat
-import com.example.weatherapp.util.PermissionUtils.requestPermission
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.edit
 import com.google.android.gms.location.*
-import com.google.android.gms.tasks.OnSuccessListener
 
 class SplashActivity : AppCompatActivity() {
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var sharedPref:SharedPreferences
+    private var fusedLocationClient: FusedLocationProviderClient? = null
+    private val LOCATION_PERMISSION_ID = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,15 +33,14 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        startLocationUpdates()
-        if (sharedPref.getBoolean(getString(R.string.preference_first_time),true)){
-            with (sharedPref.edit()) {
-                putBoolean(getString(R.string.preference_first_time),false)
-                apply()
-            }
-            goHome()
+        val lat = sharedPref.getString(getString(R.string.pref_user_lat),"")
+        if (lat.isNullOrBlank() || lat.isNullOrEmpty()){
+            if (checkLocationPermissions()) getUpdatedLocation() else requestLocationPermissions()
         }
-        else goHome()
+        else{
+            getUpdatedLocation()
+        }
+        goHome()
     }
 
     private fun goHome(){
@@ -47,65 +48,61 @@ class SplashActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
-        }, 3000)
+        }, 1000)
     }
-    private val writeLoactionToPrefrence:(location : Location?)->Unit ={location : Location?->
-
-    }
-    private fun startLocationUpdates() {
-        Log.v("change","start startLocationUpdates")
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-            == PackageManager.PERMISSION_GRANTED) {
-            val locationRequest = LocationRequest.create().apply {
-                interval = 100
-                fastestInterval = 50
-                priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
-                maxWaitTime= 100
-            }
-            fusedLocationClient.requestLocationUpdates(locationRequest, mLocationCallback, Looper.myLooper()!!)
-            fusedLocationClient.lastLocation.addOnSuccessListener {
-                with(sharedPref.edit()) {
-                    putString(getString(R.string.pref_user_lat), "${it!!.latitude}")
-                    putString(getString(R.string.pref_user_longitude), "${it!!.longitude}")
-                    Log.v("change", "from splash ${it!!.latitude}")
-                    Log.v("change", "from splash ${it!!.longitude}")
-                    commit()
-                }
-                goHome()
-            }
-        }else{
-            requestPermission(this, LOCATION_PERMISSION_REQUEST_CODE,
-                Manifest.permission.ACCESS_FINE_LOCATION, true
-            )
+    private val writeLocationToPrefrence:(location : Location?)->Unit = { location: Location? ->
+        with (sharedPref.edit()) {
+            putString(getString(R.string.pref_user_lat),"${location!!.latitude}")
+            putString(getString(R.string.pref_user_longitude),"${location!!.longitude}")
+            apply()
         }
+        Log.v("location","${location!!.latitude}")
+        goHome()
     }
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    fun requestLocationPermissions() {
+        ActivityCompat.requestPermissions(
+            this, arrayOf(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ),
+            LOCATION_PERMISSION_ID
+        )
+    }
+    fun checkLocationPermissions() :Boolean{
+        return (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED);
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
-            return
-        }
-        Log.v("permissionResult","request permission function")
-        startLocationUpdates()
-    }
-
-    companion object {
-        /**
-         * Request code for location permission request.
-         *
-         * @see .onRequestPermissionsResult
-         */
-        private const val LOCATION_PERMISSION_REQUEST_CODE = 1
-    }
-    val mLocationCallback = object : LocationCallback() {
-        override fun onLocationResult(p0: LocationResult) {
-            super.onLocationResult(p0)
-            Log.v("change","${p0.lastLocation.altitude}")
-        }
-
-        override fun onLocationAvailability(p0: LocationAvailability) {
-            super.onLocationAvailability(p0)
-            Log.v("change","${p0.isLocationAvailable}")
+        if (requestCode == LOCATION_PERMISSION_ID) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getUpdatedLocation()
+            } else {
+                Toast.makeText(this, "This action needs to use GPS", Toast.LENGTH_SHORT).show()
+            }
         }
     }
-
+    private val locationCallback: LocationCallback = object : LocationCallback() {
+        override fun onLocationResult(locationResult: LocationResult) {
+            writeLocationToPrefrence(locationResult.lastLocation)
+        }
+    }
+    @SuppressLint("MissingPermission")
+    fun getUpdatedLocation() {
+        val locationRequest = LocationRequest.create()
+        locationRequest.interval = 10000
+        locationRequest.fastestInterval = 5000
+        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        locationRequest.numUpdates = 1
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        fusedLocationClient!!.requestLocationUpdates(
+            locationRequest, locationCallback,
+            Looper.myLooper()!!
+        )
+    }
 }

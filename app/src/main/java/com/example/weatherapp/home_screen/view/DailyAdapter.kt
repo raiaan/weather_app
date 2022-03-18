@@ -1,23 +1,18 @@
 package com.example.weatherapp.home_screen.view
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.weatherapp.databinding.DailyForcasteItemBinding
-import com.example.weatherapp.databinding.DailyHoursItemsBinding
 import com.example.weatherapp.models.Daily
-import com.example.weatherapp.models.Hourly
-import java.text.SimpleDateFormat
-import java.util.*
+import com.example.weatherapp.util.dateFromLongToStr
 
 class DailyAdapter: RecyclerView.Adapter<DailyAdapter.DaysViewHolder>() {
     var days =  mutableListOf<Daily>()
         set(value) {
             field = value
             notifyDataSetChanged()
-            Log.v("change","${field.size}")
         }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DaysViewHolder {
         val binding = DailyForcasteItemBinding.inflate( LayoutInflater.from(parent.context),
@@ -29,9 +24,7 @@ class DailyAdapter: RecyclerView.Adapter<DailyAdapter.DaysViewHolder>() {
         Glide.with(holder.itemView.context)
             .load("https://openweathermap.org/img/wn/${days[position].weather[0].icon}.png")
             .into(holder.binding.currentWeatherIcon)
-        val sdf = SimpleDateFormat("EEE MMM d")
-        val currentDate = sdf.format(days[position].dt)
-        holder.binding.dayDate.text = currentDate
+        holder.binding.dayDate.text = dateFromLongToStr(days[position].dt!! ,"EEE MMM d")
         holder.binding.currentWeatherFeelLike.text = days[position].weather[0].description
         holder.binding.currentWeatherTemp.text = "${days[position].temp!!.min}"
         holder.binding.currentWeatherHumidity.text = "Humidity: ${days[position].humidity}%"

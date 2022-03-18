@@ -1,10 +1,12 @@
 package com.example.weatherapp.util
 
+import android.annotation.SuppressLint
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun dateFromLongToStr(time:Long ,pattern:String):String{
-    val date = Date(time)
+@SuppressLint("SimpleDateFormat")
+fun dateFromLongToStr(time:Long, pattern:String):String{
+    val date = Date(time*1000)
     val formatter = SimpleDateFormat(pattern)
     return formatter.format(date)
 }

@@ -3,7 +3,7 @@ package com.example.weatherapp.models
 import com.google.gson.annotations.SerializedName
 
 data class Daily(
-    @SerializedName("dt"         ) var dt        : Int?               = null,
+    @SerializedName("dt"         ) var dt        : Long?               = null,
     @SerializedName("sunrise"    ) var sunrise   : Int?               = null,
     @SerializedName("sunset"     ) var sunset    : Int?               = null,
     @SerializedName("moonrise"   ) var moonrise  : Int?               = null,

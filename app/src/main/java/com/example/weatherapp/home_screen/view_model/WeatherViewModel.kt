@@ -1,15 +1,12 @@
 package com.example.weatherapp.home_screen.view_model
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.weatherapp.models.OnlineRepository
+import com.example.weatherapp.repositories.OnlineRepository
 import com.example.weatherapp.models.WeatherResponse
-import com.example.weatherapp.network.RetrofitService
 import kotlinx.coroutines.*
-import retrofit2.Response
 
-class WeatherViewModel constructor(private val mainRepository:OnlineRepository) : ViewModel() {
+class WeatherViewModel constructor(private val mainRepository: OnlineRepository) : ViewModel() {
     var mutableLiveData= MutableLiveData<WeatherResponse>()
     val errorMessage = MutableLiveData<String>()
     var job: Job? = null
