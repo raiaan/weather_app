@@ -1,6 +1,5 @@
 package com.example.weatherapp
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
@@ -11,7 +10,6 @@ import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -36,24 +34,11 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.homeScreenFragment, R.id.favouritesFragment, R.id.alertFragment,R.id.addCityFragment,R.id.settingFragment
+                R.id.homeScreenFragment, R.id.favouritesFragment, R.id.alertFragment,R.id.addCityFragment,R.id.settingFragment,R.id.favouriteCityWeatherFragment
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-    }
-    fun requestLocationPermissions() {
-        ActivityCompat.requestPermissions(
-            this, arrayOf(
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ),
-            LOCATION_PERMISSION_ID
-        )
-    }
-    fun checkLocationPermissions() :Boolean{
-        return (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED);
     }
 
     override fun onRequestPermissionsResult(

@@ -29,10 +29,18 @@
         <action
             android:id="@+id/action_favouritesFragment_to_addCityFragment"
             app:destination="@id/addCityFragment" />
+        <action
+            android:id="@+id/action_favouritesFragment_to_favouriteCityWeatherFragment"
+            app:destination="@id/favouriteCityWeatherFragment" />
     </fragment>
     <fragment
         android:id="@+id/addCityFragment"
         android:name="com.example.weatherapp.add_fav_city.AddCityFragment"
         android:label="Add City" >
     </fragment>
+    <fragment
+        android:id="@+id/favouriteCityWeatherFragment"
+        android:name="com.example.weatherapp.favourite_city_weather.FavouriteCityWeatherFragment"
+        android:label="Favourite"
+        tools:layout="@layout/fragment_favourite_city_weather" />
 </navigation>

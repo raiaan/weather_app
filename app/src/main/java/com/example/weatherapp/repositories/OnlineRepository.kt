@@ -10,18 +10,21 @@ import com.example.weatherapp.network.RetrofitService
 import retrofit2.Response
 
 class OnlineRepository (private val retrofitService:RetrofitService, private val context:Context) {
-    lateinit var Units : String
+    lateinit var unit : String
     lateinit var language : String
     private lateinit var lat:String
     private lateinit var long:String
-    private val sharedPreferences:SharedPreferences
+    private val sharedPreferences:SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
     init {
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         getSettingDetails()
     }
     suspend fun getWeatherData():Response<WeatherResponse> {
         getSettingDetails()
-        return retrofitService.allWeatherData(lat = lat,lon=long,Units = Units,language = language)
+        return retrofitService.allWeatherData(lat = lat,lon=long,Units = unit,language = language)
+    }
+    suspend fun getFavWeatherData(lat:String , lon:String):Response<WeatherResponse> {
+        getSettingDetails()
+        return retrofitService.allWeatherData(lat = lat,lon=lon,Units = unit,language = language)
     }
     private fun getSettingDetails(){
         val languageSys = sharedPreferences.getString("language", "English").toString()
@@ -33,9 +36,9 @@ class OnlineRepository (private val retrofitService:RetrofitService, private val
         Log.v("change",languageSys)
         val units = sharedPreferences.getString("Temp" , "temp_c").toString()
         if(units.equals("temp_c")){
-            Units = "metric"
+            unit = "metric"
         }else if(units.equals("temp_f")){
-            Units = "imperial"
+            unit = "imperial"
         }
         Log.v("change",units)
         lat = sharedPreferences.getString( context.resources.getString(R.string.pref_user_lat),"30.044420")!!

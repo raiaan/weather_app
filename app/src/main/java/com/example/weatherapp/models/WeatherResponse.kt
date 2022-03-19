@@ -1,6 +1,7 @@
 package com.example.weatherapp.models
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 
 data class WeatherResponse (
@@ -12,4 +13,4 @@ data class WeatherResponse (
   @SerializedName("minutely"        ) var minutely       : ArrayList<Minutely> = arrayListOf(),
   @SerializedName("daily"           ) var daily          : ArrayList<Daily>    = arrayListOf(),
   @SerializedName("hourly"           ) var hourly          : ArrayList<Hourly>    = arrayListOf()
-)
+):Serializable

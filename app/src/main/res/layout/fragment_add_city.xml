@@ -1,4 +1,5 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -12,14 +13,28 @@
         android:hint="@string/hint_city"
         android:inputType="textAutoComplete"
         android:layout_margin="@dimen/big_padding"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <Button
         android:id="@+id/button_save"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/navy_blue"
         android:text="@string/button_save"
-        android:layout_margin="@dimen/big_padding"/>
+        android:layout_margin="@dimen/big_padding"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintTop_toBottomOf="@+id/add_city"
+        app:layout_constraintStart_toStartOf="parent" />
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintHorizontal_weight="1"
+        android:id="@+id/cancel_btn"
+        android:layout_margin="@dimen/big_padding"
+        android:text="@string/canecl"
+        style="?attr/materialButtonOutlinedStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_city"
+        app:layout_constraintRight_toLeftOf="@id/button_save" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,13 +10,12 @@ import android.location.Location
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.edit
 import com.google.android.gms.location.*
 
+@SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
     private lateinit var sharedPref:SharedPreferences
     private var fusedLocationClient: FusedLocationProviderClient? = null
@@ -55,7 +54,6 @@ class SplashActivity : AppCompatActivity() {
             putString(getString(R.string.pref_user_longitude),"${location!!.longitude}")
             apply()
         }
-        Log.v("location","${location!!.latitude}")
         goHome()
     }
     fun requestLocationPermissions() {
@@ -69,7 +67,7 @@ class SplashActivity : AppCompatActivity() {
     }
     fun checkLocationPermissions() :Boolean{
         return (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED);
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
     }
 
     override fun onRequestPermissionsResult(

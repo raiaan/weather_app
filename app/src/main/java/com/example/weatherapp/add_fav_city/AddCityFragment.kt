@@ -2,20 +2,18 @@ package com.example.weatherapp.add_fav_city
 
 import android.os.Bundle
 import android.text.TextUtils
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.example.weatherapp.WeatherApplication
 import com.example.weatherapp.add_fav_city.view_model.AddFavViewModel
 import com.example.weatherapp.add_fav_city.view_model.AddFavViewModelFactory
 import com.example.weatherapp.databinding.FragmentAddCityBinding
-import com.example.weatherapp.databinding.FragmentHomeScreenBinding
-import com.example.weatherapp.favourite.view_model.CityViewModel
-import com.example.weatherapp.favourite.view_model.CityViewModelFactory
 import com.example.weatherapp.models.City
+import com.example.weatherapp.util.getLocationFromAddress
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -45,7 +43,7 @@ class AddCityFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentAddCityBinding.inflate(inflater,container,false)
         return binding.root
@@ -53,17 +51,30 @@ class AddCityFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.buttonSave.setOnClickListener(View.OnClickListener {
-            if (TextUtils.isEmpty(binding.addCity.text)){
-            }else{
-                addFavViewModel.insert(city = City(name = binding.addCity.text.toString(),id = (System.currentTimeMillis())))
+        binding.buttonSave.setOnClickListener {
+            if (TextUtils.isEmpty(binding.addCity.text)) {
+            } else {
+                insertToFavCity(binding.addCity.text.toString())
                 Navigation.findNavController(binding.root).popBackStack()
             }
-        })
+        }
+        binding.cancelBtn.setOnClickListener { Navigation.findNavController(binding.root).popBackStack() }
     }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+    private fun insertToFavCity(cityName :String){
+        val geoPoint =  getLocationFromAddress(requireContext() ,cityName)
+        if (geoPoint != null){
+            addFavViewModel.insert( City(
+                System.currentTimeMillis(),
+                cityName,
+                "${geoPoint.latitude}",
+                "${geoPoint.longitude}" )
+            )
+        }
+
     }
     companion object {
         @JvmStatic

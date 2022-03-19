@@ -1,6 +1,7 @@
 package com.example.weatherapp.models
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Daily(
     @SerializedName("dt"         ) var dt        : Long?               = null,
@@ -21,4 +22,4 @@ data class Daily(
     @SerializedName("clouds"     ) var clouds    : Double?               = null,
     @SerializedName("pop"        ) var pop       : Double?               = null,
     @SerializedName("uvi"        ) var uvi       : Double?            = null
-)
+): Serializable

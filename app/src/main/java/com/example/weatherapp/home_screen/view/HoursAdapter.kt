@@ -1,5 +1,6 @@
 package com.example.weatherapp.home_screen.view
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,12 +9,11 @@ import com.bumptech.glide.Glide
 import com.example.weatherapp.databinding.DailyHoursItemsBinding
 import com.example.weatherapp.models.Hourly
 import com.example.weatherapp.util.dateFromLongToStr
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class HoursAdapter: RecyclerView.Adapter<HoursAdapter.HoursViewHolder>() {
     var hours =  mutableListOf<Hourly>()
+    @SuppressLint("NotifyDataSetChanged")
     set(value) {
         field = value
         notifyDataSetChanged()

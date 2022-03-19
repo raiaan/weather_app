@@ -1,5 +1,6 @@
 package com.example.weatherapp.favourite.view
 
+import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,8 +10,9 @@ import com.example.weatherapp.models.City
 
 class MyItemRecyclerViewAdapter(val deleteCallBack: (city:City)->Unit , val itemClickCallback:(city:City)->Unit) : RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder>() {
     var city = listOf<City>()
+    @SuppressLint("NotifyDataSetChanged")
     set(value) {
-        field = value;
+        field = value
         notifyDataSetChanged()
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

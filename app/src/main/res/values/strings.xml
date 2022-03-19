@@ -39,5 +39,13 @@
     <string name="temp_unit">Temperature unite and Wind speed</string>
     <string name="language">Language</string>
     <string name="languages">language</string>
-
+    <string name="pref_last_update">weather_last_update</string>
+    <string name="no_internet">Sorry there is no internet connection</string>
+    <string name="canecl">Cancel</string>
+    <string name="favourite_city_key">favouriteCityKey</string>
+    <string name="humidity_label">Humidity</string>
+    <string name="precent_symbol">%</string>
+    <string name="wind_label">Wind</string>
+    <string name="pressure_label">Pressure</string>
+    <string name="clouds_label">Clouds</string>
 </resources>

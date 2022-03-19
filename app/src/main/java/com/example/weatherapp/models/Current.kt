@@ -1,6 +1,7 @@
 package com.example.weatherapp.models
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 
 data class Current (
@@ -18,4 +19,4 @@ data class Current (
   @SerializedName("wind_speed" ) var windSpeed  : Double?            = null,
   @SerializedName("wind_deg"   ) var windDeg    : Int?               = null,
   @SerializedName("weather"    ) var weather    : ArrayList<Weather> = arrayListOf()
-)
+): Serializable
