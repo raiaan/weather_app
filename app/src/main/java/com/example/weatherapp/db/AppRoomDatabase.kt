@@ -9,6 +9,7 @@ import com.example.weatherapp.models.City
 @Database(entities = [City::class], version = 2, exportSchema = false)
 abstract class AppRoomDatabase : RoomDatabase() {
     abstract fun cityDao(): WeatherDao
+    abstract fun AlertDao():AlertDao
 
     companion object {
         @Volatile

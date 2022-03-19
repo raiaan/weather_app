@@ -2,6 +2,7 @@ package com.example.weatherapp.db
 
 import androidx.room.*
 import androidx.room.Dao
+import com.example.weatherapp.models.Alert
 import com.example.weatherapp.models.City
 import kotlinx.coroutines.flow.Flow
 
