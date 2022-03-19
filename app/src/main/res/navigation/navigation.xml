@@ -8,46 +8,24 @@
     <fragment
         android:id="@+id/homeScreenFragment"
         android:name="com.example.weatherapp.home_screen.view.HomeScreenFragment"
-        android:label="HomeScreenFragment" >
+        android:label="Home" >
         <action
             android:id="@+id/action_homeScreenFragment_to_settingFragment"
             app:destination="@id/settingFragment" />
-        <action
-            android:id="@+id/action_homeScreenFragment_to_alertFragment"
-            app:destination="@id/alertFragment" />
-        <action
-            android:id="@+id/action_homeScreenFragment_to_favouritesFragment"
-            app:destination="@id/favouritesFragment" />
     </fragment>
     <fragment
         android:id="@+id/alertFragment"
         android:name="com.example.weatherapp.alert.AlertFragment"
-        android:label="AlertFragment" >
-        <action
-            android:id="@+id/action_alertFragment_to_homeScreenFragment"
-            app:destination="@id/homeScreenFragment" />
-        <action
-            android:id="@+id/action_alertFragment_to_settingFragment"
-            app:destination="@id/settingFragment" />
-        <action
-            android:id="@+id/action_alertFragment_to_favouritesFragment"
-            app:destination="@id/favouritesFragment" />
-    </fragment>
+        android:label="Alerts" />
     <fragment
         android:id="@+id/settingFragment"
         android:name="com.example.weatherapp.setting.SettingFragment"
-        android:label="SettingFragment" />
+        android:label="Setting" />
     <fragment
         android:id="@+id/favouritesFragment"
         android:name="com.example.weatherapp.favourite.view.FavouritesFragment"
-        android:label="fragment_favourites_list"
+        android:label="favourite"
         tools:layout="@layout/fragment_favourites_list" >
-        <action
-            android:id="@+id/action_favouritesFragment_to_homeScreenFragment"
-            app:destination="@id/homeScreenFragment" />
-        <action
-            android:id="@+id/action_favouritesFragment_to_alertFragment"
-            app:destination="@id/alertFragment" />
         <action
             android:id="@+id/action_favouritesFragment_to_addCityFragment"
             app:destination="@id/addCityFragment" />
@@ -55,6 +33,6 @@
     <fragment
         android:id="@+id/addCityFragment"
         android:name="com.example.weatherapp.add_fav_city.AddCityFragment"
-        android:label="AddCityFragment" >
+        android:label="Add City" >
     </fragment>
 </navigation>

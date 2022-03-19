@@ -11,6 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.weatherapp.R
@@ -20,12 +22,10 @@ import com.example.weatherapp.home_screen.view_model.WeatherViewModelFactory
 import com.example.weatherapp.repositories.OnlineRepository
 import com.example.weatherapp.models.WeatherResponse
 import com.example.weatherapp.network.RetrofitService
+import com.example.weatherapp.network.RetrofitService.Companion.retrofitService
 import com.example.weatherapp.util.dateFromLongToStr
 import java.util.*
 
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
@@ -39,8 +39,10 @@ class HomeScreenFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var lat:String
     private lateinit var log:String
+
     val hoursAdapter = HoursAdapter()
     val daysAdapter = DailyAdapter()
+    lateinit var  mainRepository:OnlineRepository
    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -49,27 +51,22 @@ class HomeScreenFragment : Fragment() {
         }
         sharedPreferences = requireActivity().getSharedPreferences(
             getString(R.string.preference_setting_key), Context.MODE_PRIVATE)?: return
-        lat = sharedPreferences.getString(getString(R.string.pref_user_lat),"30.044420")!!
-        log = sharedPreferences.getString(getString(R.string.pref_user_longitude),"31.235712")!!
+       val retrofitService = RetrofitService.getInstance()
+       mainRepository = OnlineRepository(retrofitService, requireContext())
+       viewModel = ViewModelProvider(this, WeatherViewModelFactory(mainRepository))
+           .get(WeatherViewModel::class.java)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.getOnlineWeatherData()
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeScreenBinding.inflate(inflater,container,false)
-        val view = binding.root
-        val retrofitService = RetrofitService.getInstance()
-        val mainRepository = OnlineRepository(retrofitService,lat,log)
-        binding.weatherHoursList.apply {
-            adapter = hoursAdapter
-            layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
-        }
-        binding.dailyForcastList.apply {
-            adapter = daysAdapter
-            layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
-        }
-        viewModel = ViewModelProvider(this, WeatherViewModelFactory(mainRepository))
-            .get(WeatherViewModel::class.java)
+        initUI()
         viewModel.mutableLiveData.observe(viewLifecycleOwner,weatherResponse)
 
         viewModel.errorMessage.observe(viewLifecycleOwner, {
@@ -83,8 +80,7 @@ class HomeScreenFragment : Fragment() {
                 //binding.progressDialog.visibility = View.GONE
             }
         })
-        viewModel.getOnlineWeatherData()
-        return view
+        return binding.root
     }
     private fun getCity(lat:String,lon:String):String{
         viewModel.getOnlineWeatherData()
@@ -94,11 +90,15 @@ class HomeScreenFragment : Fragment() {
         val address: Address = myList[0]
         return address.subAdminArea
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.currentDate.text = dateFromLongToStr(Date(),"EEE MMM d")
+        lat = sharedPreferences.getString(context?.resources?.getString(R.string.pref_user_lat) ,"30.044420")!!
+        log = sharedPreferences.getString(context?.resources?.getString(R.string.pref_user_longitude),"31.235712")!!
         binding.currentCity.text = getCity(lat,log)
     }
+
     val weatherResponse:(it:WeatherResponse)->Unit =  {it:WeatherResponse ->
         run {
             Glide.with(this)
@@ -114,11 +114,26 @@ class HomeScreenFragment : Fragment() {
             daysAdapter.days = it.daily
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
+
+    private fun initUI(){
+        binding.weatherHoursList.apply {
+            adapter = hoursAdapter
+            layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
+        }
+        binding.dailyForcastList.apply {
+            adapter = daysAdapter
+            layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
+        }
+        binding.settingFab.setOnClickListener {
+            Navigation.findNavController(binding.root).navigate(R.id.action_homeScreenFragment_to_settingFragment)
+        }
+    }
 
     companion object {
 

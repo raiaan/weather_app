@@ -11,6 +11,8 @@ interface RetrofitService {
     @GET("onecall")
     suspend fun allWeatherData(@Query("lat", encoded=true) lat:String ,
                                @Query("lon", encoded=true) lon:String ,
+                               @Query("units") Units : String = "metric",
+                               @Query("lang") language : String = "en",
                                @Query("exclud", encoded=true) exclude:String ="daily",
                                @Query("appid", encoded=true) appid:String = "adc11d699014fce526e5c765fdf3539d"): Response<WeatherResponse>
 

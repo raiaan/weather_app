@@ -1,5 +1,6 @@
 package com.example.weatherapp.home_screen.view_model
 
+
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.weatherapp.repositories.OnlineRepository
@@ -36,4 +37,5 @@ class WeatherViewModel constructor(private val mainRepository: OnlineRepository)
         super.onCleared()
         job?.cancel()
     }
+
 }

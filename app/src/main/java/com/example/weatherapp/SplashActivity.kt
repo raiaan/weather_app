@@ -21,7 +21,6 @@ class SplashActivity : AppCompatActivity() {
     private lateinit var sharedPref:SharedPreferences
     private var fusedLocationClient: FusedLocationProviderClient? = null
     private val LOCATION_PERMISSION_ID = 1
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
