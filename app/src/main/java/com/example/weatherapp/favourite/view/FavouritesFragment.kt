@@ -38,7 +38,6 @@ class FavouritesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFavouritesListBinding.inflate(inflater,container,false)
-        val view = binding.root
         binding.list.apply {
             layoutManager =  LinearLayoutManager(context)
             adapter = cityAdapter
@@ -47,10 +46,10 @@ class FavouritesFragment : Fragment() {
             cityAdapter.city = it
         }
         binding.fab.setOnClickListener {
-            Navigation.findNavController(view)
+            Navigation.findNavController(binding.root)
                 .navigate(R.id.action_favouritesFragment_to_addCityFragment)
         }
-        return view
+        return binding.root
     }
     override fun onDestroyView() {
         super.onDestroyView()

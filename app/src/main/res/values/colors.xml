@@ -11,7 +11,11 @@
     <color name="navy_blue">#325288</color>
     <color name="green">#24A19C</color>
     <color name="transparent_green">#6642A19C</color>
-    <color name="cream">#FAEEE7</color>
     <color name="rose">#D96098</color>
     <color name="black_overlay">#66000000</color>
+
+
+    <color name="blue">#2E499D</color>
+    <color name="dull_blue">#4769AD</color>
+    <color name="cream">#FAEEE7</color>
 </resources>

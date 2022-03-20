@@ -7,7 +7,7 @@ import com.example.weatherapp.models.City
 import kotlinx.coroutines.flow.Flow
 
 class LocalAlertRepo(private val alertDao: AlertDao) {
-    val allCities: Flow<List<Alert>> = alertDao.getalerts()
+    val getAlerts: Flow<List<Alert>> = alertDao.getalerts()
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insert(alert: Alert) {

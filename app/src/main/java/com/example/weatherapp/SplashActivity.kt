@@ -17,16 +17,13 @@ import com.google.android.gms.location.*
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
-    private lateinit var sharedPref:SharedPreferences
+    private lateinit var  sharedPref:SharedPreferences
     private var fusedLocationClient: FusedLocationProviderClient? = null
-    private val LOCATION_PERMISSION_ID = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        sharedPref = getSharedPreferences(
-            getString(R.string.preference_setting_key), Context.MODE_PRIVATE)?: return
-
+        sharedPref =  getSharedPreferences(getString(R.string.preference_setting_key), Context.MODE_PRIVATE)
     }
 
     override fun onStart() {
@@ -35,9 +32,7 @@ class SplashActivity : AppCompatActivity() {
         if (lat.isNullOrBlank() || lat.isNullOrEmpty()){
             if (checkLocationPermissions()) getUpdatedLocation() else requestLocationPermissions()
         }
-        else{
-            getUpdatedLocation()
-        }
+        else getUpdatedLocation()
         goHome()
     }
 
@@ -101,5 +96,8 @@ class SplashActivity : AppCompatActivity() {
             locationRequest, locationCallback,
             Looper.myLooper()!!
         )
+    }
+    companion object{
+        const val LOCATION_PERMISSION_ID = 1
     }
 }

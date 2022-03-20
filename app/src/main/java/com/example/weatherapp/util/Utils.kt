@@ -5,12 +5,14 @@ import android.content.Context
 import android.location.Address
 import android.location.Geocoder
 import android.net.ConnectivityManager
+import android.util.Log
 import com.example.weatherapp.models.WeatherResponse
 import com.google.firebase.firestore.GeoPoint
 import com.google.gson.Gson
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.atomic.AtomicInteger
 
 
 fun isNetworkAvailable(context: Context): Boolean {
@@ -23,6 +25,21 @@ fun dateFromLongToStr(time:Long, pattern:String):String{
     val date = Date(time*1000)
     val formatter = SimpleDateFormat(pattern)
     return formatter.format(date)
+}
+fun getDate(milliSeconds: Long, dateFormat: String?): String? {
+    val formatter = SimpleDateFormat(dateFormat)
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = milliSeconds
+    return formatter.format(calendar.time)
+}
+fun getDateTime(s: String , pattern:String): String {
+    try {
+        val sdf = SimpleDateFormat(pattern)
+        val netDate = Date(s.toLong() * 1000)
+        return sdf.format(netDate)
+    } catch (e: Exception) {
+        return e.toString()
+    }
 }
 fun dateFromLongToStr(time: Date, pattern:String):String{
     val formatter = SimpleDateFormat(pattern)
@@ -43,6 +60,7 @@ fun getCity(lat:String,lon:String,context:Context):String{
     val address: Address = myList[0]
     return address.subAdminArea
 }
+fun getRandomInt() = AtomicInteger().getAndIncrement() + System.currentTimeMillis().toInt()
 fun getLocationFromAddress(context: Context,strAddress: String?): GeoPoint? {
     val coder = Geocoder(context)
     val address: List<Address>?

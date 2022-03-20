@@ -37,7 +37,7 @@ class HomeScreenFragment : Fragment() {
     private lateinit var  mainRepository:OnlineRepository
    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedPreferences = requireActivity().getSharedPreferences(
+        sharedPreferences = requireActivity().applicationContext.getSharedPreferences(
             getString(R.string.preference_setting_key), Context.MODE_PRIVATE)?: return
        val retrofitService = RetrofitService.getInstance()
        mainRepository = OnlineRepository(retrofitService, requireContext())
@@ -52,8 +52,6 @@ class HomeScreenFragment : Fragment() {
             updateUI(readFromSharedPref())
             Toast.makeText(context,resources.getString(R.string.no_internet),Toast.LENGTH_LONG).show()
         }
-
-
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,12 +77,12 @@ class HomeScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.currentDate.text = dateFromLongToStr(Date(),"EEE MMM d")
         lat = sharedPreferences.getString(context?.resources?.getString(R.string.pref_user_lat) ,"30.044420")!!
         log = sharedPreferences.getString(context?.resources?.getString(R.string.pref_user_longitude),"31.235712")!!
         binding.currentCity.text = getCity(lat,log,requireContext())
         if (isNetworkAvailable(requireContext()))
             viewModel.getOnlineWeatherData()
+        else readFromSharedPref()
     }
 
     val weatherResponse:(it:WeatherResponse)->Unit =  {it:WeatherResponse ->
@@ -102,7 +100,6 @@ class HomeScreenFragment : Fragment() {
         binding.currentWeatherTemp.text = "${it.current!!.temp}"
         binding.currentWeatherHumidity.text = resources.getString(R.string.humidity_label) + it.current!!.humidity +resources.getString(R.string.precent_symbol)
         binding.currentWeatherWind.text =resources.getString(R.string.wind_label)+ it.current!!.windSpeed
-        binding.currentWeatherPressure.text = resources.getString(R.string.wind_label)+ it.current!!.pressure
         binding.currentWeatherClouds.text = resources.getString(R.string.humidity_label) +it.current!!.clouds+resources.getString(R.string.precent_symbol)
         hoursAdapter.hours = it.hourly
         daysAdapter.days = it.daily
@@ -110,9 +107,11 @@ class HomeScreenFragment : Fragment() {
     private fun saveDataTosharedPref(it:WeatherResponse){
         with(sharedPreferences.edit()){
             putString(getString(R.string.pref_last_update),convertWeatherResponseToGson(it))
+            apply()
         }
     }
     private fun readFromSharedPref():WeatherResponse{
+        println("from home fragment: "+sharedPreferences.getString(resources.getString(R.string.pref_last_update),null))
         return convertGsonToWeatherResponse(
             sharedPreferences.getString(resources.getString(R.string.pref_last_update),null)!!
         )

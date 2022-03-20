@@ -27,4 +27,16 @@
         <item>Arabic</item>
         <item>English</item>
     </string-array>
+    <string-array name="events">
+        <item>Rain</item>
+        <item>Wind</item>
+        <item>Fog</item>
+        <item>Snow</item>
+        <item>Clouds</item>
+        <item>Thunderstorm</item>
+        <item>Clear</item>
+        <item>Drizzle</item>
+        <item>Dust</item>
+        <item>Mist</item>
+    </string-array>
 </resources>

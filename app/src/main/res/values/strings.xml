@@ -48,4 +48,13 @@
     <string name="wind_label">Wind</string>
     <string name="pressure_label">Pressure</string>
     <string name="clouds_label">Clouds</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="event">Event</string>
+    <string name="cancelAlarm">cancel alert</string>
+    <string name="TitleDeleteAlarm">Do you want cancel this alarm ?</string>
+    <string name="notification">Notification</string>
+    <string name="sound">Sound Alarm</string>
+    <string name="from_time_content">from time picker</string>
+    <string name="to_date_content">to Date picker</string>
 </resources>
