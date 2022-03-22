@@ -11,7 +11,7 @@ android application that read wheather data from open weather map api and presen
   <li>alert screen</li>
   <p>display list of alert of the weather you want to be notified in specific time you can add or delete alerts in this screen</p>
 </ul>
-## use technologies:- 
+<h2>used technologies:- </h2>
 <ul>
   <li>MVVM pattern</li>
   <li>coroutines kotlin </li>
