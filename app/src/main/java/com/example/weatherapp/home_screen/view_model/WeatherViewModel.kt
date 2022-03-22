@@ -12,10 +12,10 @@ class WeatherViewModel constructor(private val mainRepository: OnlineRepository)
     var favmutableLiveData = MutableLiveData<WeatherResponse>()
     val errorMessage = MutableLiveData<String>()
     var job: Job? = null
-    val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         onError("Exception handled: ${throwable.localizedMessage}")
     }
-    val loading = MutableLiveData<Boolean>()
+    private val loading = MutableLiveData<Boolean>()
     fun getOnlineWeatherData(){
         job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
             val response = mainRepository.getWeatherData()

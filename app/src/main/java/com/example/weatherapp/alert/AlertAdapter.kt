@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.R
 import com.example.weatherapp.databinding.AlertListItemBinding
 import com.example.weatherapp.models.Alert
+import com.example.weatherapp.util.dateFromLongToStr
+import com.example.weatherapp.util.getDate
 
 class AlertAdapter(val deleteLocationCallback:(alert:Alert)->Unit): RecyclerView.Adapter<AlertAdapter.AlertViewHolder>(){
     lateinit var context:Context
@@ -28,8 +30,7 @@ class AlertAdapter(val deleteLocationCallback:(alert:Alert)->Unit): RecyclerView
     }
 
     override fun onBindViewHolder(holder: AlertViewHolder, position: Int) {
-        holder.binding.from.text = alert[position].dateFrom
-        holder.binding.to.text = alert[position].dateTo
+        holder.binding.from.text = getDate(alert[position].date,"MM/dd/yyyy hh:mm")
         holder.binding.Event.text = alert[position].event
         holder.binding.cancel.setOnClickListener {
             AlertDialog.Builder(context!!)
@@ -37,7 +38,7 @@ class AlertAdapter(val deleteLocationCallback:(alert:Alert)->Unit): RecyclerView
                 .setMessage(R.string.TitleDeleteAlarm)
                 .setPositiveButton(
                     android.R.string.yes
-                ) { dialog, which ->
+                ) { _, _ ->
                     deleteLocationCallback(alert[position])
                 }
                 .setNegativeButton(android.R.string.no, null)

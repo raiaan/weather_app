@@ -67,13 +67,7 @@ class AlertDialog: DialogFragment() {
                 val e = resources.getStringArray(R.array.events)
                 event = e[i]
             }
-
             override fun onNothingSelected(adapterView: AdapterView<*>?) {}
-        }
-        binding.optionsRadioGroup.setOnCheckedChangeListener { group, checkedId -> // checkedId is the RadioButton selected
-            val rb = view.findViewById(checkedId) as RadioButton
-            alarm = rb.text as String
-
         }
         setupClickListeners()
     }
@@ -87,83 +81,22 @@ class AlertDialog: DialogFragment() {
     }
 
     private fun setupClickListeners() {
-        binding.fromTimePicker.setOnClickListener {
+        binding.timePicker.setOnClickListener {
             setAlarm {
                 x = it
-                startTime = getDate(it, "MM/dd/yyyy hh:mm:ss a").toString()
-                binding.fromTimeText.text = getDate(it, "dd-MM-yyyy hh:mm a")
+                binding.timeTxt.text = getDate(it , "EEE MMM d")
             }
-        }
-        binding.toDatePicker.setOnClickListener {
-            setAlarm {
-                y = it
-                endTime =getDate(it, "MM/dd/yyyy hh:mm:ss a").toString()
-                binding.toTimeText.text = getDate(it, "dd-MM-yyyy hh:mm a")
-            }
-
         }
         binding.submit.setOnClickListener {
-            if (startTime.equals("") || endTime.equals("") || alarm.equals("")) {
-                Toast.makeText(context, "Date is required :(", Toast.LENGTH_LONG).show()
-            } else {
-                val answer = dateFromLongToStr(Calendar.getInstance().time,"MM/dd/yyyy hh:mm:ss a")
-                Log.v("change",answer)
-                if (startTime < answer || endTime < answer) {
-                    Toast.makeText(context, "Enter valid time :(", Toast.LENGTH_LONG).show()
-                } else {
-                    val code = getRandomInt()
+            Log.v("test_time","$x")
+            val code = getRandomInt()
+            viewModel.addAlertToDB(x, event, code)
+            viewModel.addToWorkManager(x,event,code,requireContext())
+            val alertFragment = AlertFragment()
+            fragmentManager?.beginTransaction()?.replace(R.id.home_fragment_container, alertFragment)
+                ?.addToBackStack(null)?.commit()
+            dismiss()
 
-                    val result = viewModel.search11(alarmHours, startTime, endTime, event)
-                    if (result != null) {
-                        if (alarm.equals("Notification")) {
-//                            alarmService.setExactAlarm(
-//                                x,
-//                                result.weather.get(0).description,
-//                                " at " + getDateTime(
-//                                    result.dt.toString(),
-//                                    "dd-MM-yyyy hh:mm a"
-//                                ),
-//                                code
-//                            )
-                        }
-                        else if (alarm.equals("Sound Alarm")) {
-//                            alarmService.setAlertAlaram(
-//                                x,
-//                                result.weather.get(0).description,
-//                                " at " + getDateTime(
-//                                    result.dt.toString(),
-//                                    "dd-MM-yyyy hh:mm a"
-//                                ),
-//                                code
-//                            )
-                        }
-
-                    } else {
-                        if (alarm.equals("Notification")) {
-//                            alarmService.setExactAlarm(
-//                                x,
-//                                event + " not found ",
-//                                "FROM " + startTime + " TO " + endTime,
-//                                code
-//                            )
-                        } else if (alarm.equals("Sound Alarm")) {
-//                            alarmService.setAlertAlaram(
-//                                x,
-//                                event + " not found ",
-//                                "FROM " + startTime + " TO " + endTime,
-//                                code
-//                            )
-
-                        }
-
-                    }
-                    viewModel.addAlertToDB(binding.fromTimeText.text as String, binding.toTimeText.text as String, event, code)
-                    val alertFragment = AlertFragment()
-                    fragmentManager?.beginTransaction()?.replace(R.id.home_fragment_container, alertFragment)
-                        ?.addToBackStack(null)?.commit()
-                    dismiss()
-                }
-            }
         }
     }
 

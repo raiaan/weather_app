@@ -9,11 +9,8 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     android:layout_marginRight="16dp"
+    android:gravity="center"
     android:background="@drawable/background_blue_color">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/hours_txt"/>
     <ImageView
         android:layout_width="64dp"
         android:layout_height="64dp"
@@ -21,5 +18,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/cream"
         android:id="@+id/hours_time_weather"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/cream"
+        android:id="@+id/hours_txt"/>
 </LinearLayout>

@@ -27,7 +27,7 @@ class HoursAdapter: RecyclerView.Adapter<HoursAdapter.HoursViewHolder>() {
 
     override fun onBindViewHolder(holder: HoursViewHolder, position: Int) {
         holder.binding.hoursTimeWeather.text = "${hours[position].temp}"
-        holder.binding.hoursTxt.text = dateFromLongToStr(hours[position].dt!!,"HH:mm aa")
+        holder.binding.hoursTxt.text = dateFromLongToStr(hours[position].dt!!,"HH aa")
         Glide.with(holder.itemView.context)
             .load("https://openweathermap.org/img/wn/${hours[position].weather[0].icon}.png")
             .into(holder.binding.hourWeatherIcon)

@@ -12,119 +12,42 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
+            android:gravity="center"
             android:weightSum="2">
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
-                android:layout_marginTop="50dp"
-                android:layout_marginEnd="100dp"
-                android:layout_weight="1"
-                android:gravity="center"
                 android:text="@string/from"
+                android:textFontWeight="@integer/bolder_text_value"
+                android:textSize="@dimen/bigger_font_size"
                 android:textColor="@color/navy_blue" />
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:layout_marginEnd="50dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/to"
-                android:textColor="#FFC107" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
             <ImageButton
-                android:id="@+id/from_time_picker"
+                android:id="@+id/time_picker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="36dp"
                 android:layout_marginEnd="36dp"
-                android:layout_weight="1"
                 app:srcCompat="@drawable/ic_baseline_calendar_month_24"
-                android:contentDescription="@string/from_time_content" />
-
-            <ImageButton
-                android:id="@+id/to_date_picker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="36dp"
-                android:layout_marginRight="36dp"
-                android:layout_marginBottom="16dp"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/ic_baseline_calendar_month_24"
-                android:contentDescription="@string/to_date_content" />
+                android:contentDescription="@string/from_time_content"
+                app:tint="@color/cream" />
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/from_time_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:gravity="center|top" />
-
-            <TextView
-                android:id="@+id/to_time_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center|top" />
-
-        </LinearLayout>
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/time_txt"
+        />
         <Spinner
             android:id="@+id/events_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp" />
-
-        <RadioGroup
-            android:id="@+id/options_radio_group"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="20dp">
-
-            <RadioButton
-                android:id="@+id/RB1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/notification"
-                />
-
-            <RadioButton
-                android:id="@+id/RB2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/sound" />
-        </RadioGroup>
-
+            android:minHeight="48dp"/>
         <Button
             android:id="@+id/submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:layout_marginRight="100dp"
-            android:layout_marginBottom="30dp"
             android:gravity="center"
+            android:layout_margin="16dp"
             android:text="@string/button_save" />
     </LinearLayout>

@@ -4,18 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="20dp"
-    android:layout_margin="6dp"
-    app:cardElevation="22dp">
+    app:cardCornerRadius="@dimen/cardview_default_radius"
+    app:cardElevation="@dimen/cardview_default_elevation"
+    android:layout_margin="@dimen/default_margin"
+    android:background="@drawable/background_blue_color">
 
     <LinearLayout
         android:id="@+id/row"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:weightSum="4"
+        android:weightSum="5"
+        android:padding="@dimen/default_margin"
+        android:background="@drawable/background_blue_color">
+        android:padding="@dimen/default_margin"
         android:baselineAligned="false">
-
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -26,71 +29,57 @@
                 android:id="@+id/txtName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
+                android:textFontWeight="@integer/bold_text_value"
+                android:textSize="@dimen/bigger_font_size"
+                android:textColor="@color/cream"
                 android:text="@string/from"/>
-
-            <TextView
-                android:id="@+id/txtId"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="6dp"
-                android:text="@string/to"
-                android:textColor="#FFC107" />
-
             <TextView
                 android:id="@+id/txtTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="6dp"
+                android:textFontWeight="@integer/bold_text_value"
+                android:textSize="@dimen/bigger_font_size"
+                android:textColor="@color/cream"
                 android:text="@string/event"
-                android:textColor="#FFC107" />
+                />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/from"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:gravity="start" />
-
-            <TextView
-                android:id="@+id/to"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:gravity="start" />
+                android:textFontWeight="@integer/bold_text_value"
+                android:textSize="@dimen/bigger_font_size"
+                android:gravity="start"
+                android:textColor="@color/cream" />
 
             <TextView
                 android:id="@+id/Event"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:textFontWeight="@integer/bold_text_value"
+                android:textSize="@dimen/bigger_font_size"
+                android:textColor="@color/cream"
                 android:gravity="start" />
-
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center"
             android:orientation="vertical">
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:id="@+id/cancel"
-                app:tint = "@color/black"
-                android:layout_margin="20dp"
+                app:tint = "@color/cream"
                 android:src="@drawable/ic_baseline_delete_24"/>
         </LinearLayout>
     </LinearLayout>

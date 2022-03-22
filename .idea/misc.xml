@@ -20,13 +20,14 @@
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.15520833333333334" />
         <entry key="app/src/main/res/layout/add_alert_dialog.xml" value="0.15520833333333334" />
         <entry key="app/src/main/res/layout/alert_dialog.xml" value="0.3098958333333333" />
-        <entry key="app/src/main/res/layout/alert_list_item.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/alert_list_item.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/daily_hours_items.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_add_city.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_alert.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_favourite_city_weather.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_favourites.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_favourites_list.xml" value="0.2604166666666667" />
-        <entry key="app/src/main/res/layout/fragment_home_screen.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_home_screen.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_setting.xml" value="0.17552083333333332" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.24895833333333334" />
         <entry key="app/src/main/res/xml/root_preferences.xml" value="0.17552083333333332" />

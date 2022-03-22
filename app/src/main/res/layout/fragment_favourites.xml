@@ -17,7 +17,8 @@
         android:textSize="@dimen/big_font_size"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/cream"/>
 
     <ImageView
         android:id="@+id/remove_city"
@@ -30,5 +31,6 @@
         android:textAppearance="?attr/textAppearanceListItem"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/cream"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -22,6 +24,7 @@ import com.example.weatherapp.repositories.OnlineRepository
 import com.example.weatherapp.models.WeatherResponse
 import com.example.weatherapp.network.RetrofitService
 import com.example.weatherapp.util.*
+import com.google.android.material.tabs.TabLayout
 import java.util.*
 
 class HomeScreenFragment : Fragment() {
@@ -53,24 +56,13 @@ class HomeScreenFragment : Fragment() {
             Toast.makeText(context,resources.getString(R.string.no_internet),Toast.LENGTH_LONG).show()
         }
     }
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentHomeScreenBinding.inflate(inflater,container,false)
         initUI()
         viewModel.mutableLiveData.observe(viewLifecycleOwner,weatherResponse)
 
         viewModel.errorMessage.observe(viewLifecycleOwner) {
             Log.v("change", "there is some error : $it")
-        }
-
-        viewModel.loading.observe(viewLifecycleOwner) {
-            if (it) {
-                //binding.progressDialog.visibility = View.VISIBLE
-            } else {
-                //binding.progressDialog.visibility = View.GONE
-            }
         }
         return binding.root
     }
@@ -83,6 +75,23 @@ class HomeScreenFragment : Fragment() {
         if (isNetworkAvailable(requireContext()))
             viewModel.getOnlineWeatherData()
         else readFromSharedPref()
+        binding.listToggle.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                Log.v("","${tab!!.position}")
+                when(tab.position){
+                    0 -> {
+                        binding.dailyForcastList.visibility = GONE
+                        binding.weatherHoursList.visibility = VISIBLE
+                    }
+                    1->{
+                        binding.dailyForcastList.visibility = VISIBLE
+                        binding.weatherHoursList.visibility = GONE
+                    }
+                }
+            }
+            override fun onTabReselected(tab: TabLayout.Tab?) {  }
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+        })
     }
 
     val weatherResponse:(it:WeatherResponse)->Unit =  {it:WeatherResponse ->
@@ -111,7 +120,6 @@ class HomeScreenFragment : Fragment() {
         }
     }
     private fun readFromSharedPref():WeatherResponse{
-        println("from home fragment: "+sharedPreferences.getString(resources.getString(R.string.pref_last_update),null))
         return convertGsonToWeatherResponse(
             sharedPreferences.getString(resources.getString(R.string.pref_last_update),null)!!
         )

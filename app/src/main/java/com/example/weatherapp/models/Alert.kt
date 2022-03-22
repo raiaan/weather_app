@@ -6,8 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "Alerts")
 class Alert (
-    @ColumnInfo(name = "dateFrom") val dateFrom: String,
-    @ColumnInfo(name = "dateTo") val dateTo: String,
+    @ColumnInfo(name = "date") val date: Long,
     @ColumnInfo(name = "event") val event: String,
     @ColumnInfo(name = "requestCode") val requestCode: Int
     ){
